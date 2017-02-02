@@ -1,0 +1,18 @@
+Открывается тег BREAKFASE-MENU 
+Открывается тег FOOD id="1" status="true"
+Открывается тег NAME который содержит в себе: BELGIAN WAFFLES. Тег NAME закрывается.
+Открывается тег PRICE который содержит в себе: $5.95. Тег PRICE закрывается.
+Открывается тег DESCRIPTION 
+Содержит в себе: two of our famous Belgian Waffles with plenty of real maple syrup
+Закрывается тег /DESCRIPTION
+Открывается тег CALORIES который содержит в себе: 650. Тег CALORIES закрывается.
+Закрывается тег /FOOD
+Открывается тег FOOD id="2" status="false"
+Открывается тег NAME который содержит в себе: STRAWBERRY BELGIAN WAFFLES. Тег NAME закрывается.
+Открывается тег PRICE который содержит в себе: $7.95. Тег PRICE закрывается.
+Открывается тег DESCRIPTION 
+Содержит в себе: light Belgian waffles covered with strawberry and whipped cream
+Закрывается тег /DESCRIPTION
+Открывается тег CALORIES который содержит в себе: 900. Тег CALORIES закрывается.
+Закрывается тег /FOOD
+Закрывается тег /BREAKFASE-MENU
