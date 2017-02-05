@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<schema xmlns="http://www.w3.org/2001/XMLSchema"
+		targetNamespace="http://www.epam.tc.com">
+
+	<element name="web-app">
+		<complexType>
+			<choice>
+				<element name="display-name" type="string" maxOccurs="unbounded"/>			
+				<element name="welcome-file-list">
+					<complexType>
+						<sequence>
+							<element name="welcome-file" type="string" maxOccurs="unbounded"/>
+						</sequence>
+					</complexType>
+				</element>
+				<element name="filter" maxOccurs="unbounded">
+					<complexType>
+						<sequence>
+							<element name="filter-name" type="string"/>
+							<element name="filter-class" type="string"/>
+							<element name="init-param" minOccurs="0" maxOccurs="unbounded" >
+								<complexType>
+									<sequence>
+										<element name="param-name" type="string"/>
+										<element name="param-value" type="string"/>
+									</sequence>
+								</complexType>
+							</element>
+						</sequence>
+					</complexType>
+				</element>
+				<element name="filter-mapping" maxOccurs="unbounded">
+					<complexType>
+						<sequence>
+							<element name="filter-name" type = "string"/>
+							<element name="url-pattern" type = "string"/>
+							<element name="dispatcher" type = "string"/>
+						</sequence>
+					</complexType>
+				</element>
+				<element name="listener" maxOccurs="unbounded">
+					<complexType>
+						<sequence>
+							<element name="listener-class" type="string"/>
+						</sequence>
+					</complexType>
+				</element>
+				<element name="servlet" maxOccurs="unbounded">
+					<complexType>
+						<sequence>
+							<element name="servlet-name" type="string"/>
+							<element name="servlet-class" type="string"/>
+						</sequence>
+					</complexType>
+				</element>
+				<element name="servlet-mapping" maxOccurs="unbounded">
+					<complexType>
+						<sequence>
+							<element name="servlet-name" type="string"/>
+							<element name="url-pattern" type="string"/>
+							<element name="init-param" minOccurs="0" maxOccurs="unbounded" >
+								<complexType>
+									<sequence>
+										<element name="param-name" type="string"/>
+										<element name="param-value" type="string"/>
+									</sequence>
+								</complexType>
+							</element>
+						</sequence>
+					</complexType>
+				</element>
+				<element name="error-page" maxOccurs="unbounded">
+					<complexType>
+						<choice>
+							<element name="exception-type" type="string" minOccurs="0"/>
+							<element name="error-code" type="string" minOccurs="0"/>
+							<element name="location" type="string"/>
+						</choice>
+					</complexType>
+				</element>
+			</choice>
+			<attribute name="id" type="string" use="required"/>
+			<attribute name="version" type="string" use="required"/>
+		</complexType>
+	</element>
+
+
+</schema>
