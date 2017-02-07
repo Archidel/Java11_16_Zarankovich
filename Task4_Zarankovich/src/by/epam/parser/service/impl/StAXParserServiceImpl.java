@@ -4,7 +4,6 @@ import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import java.util.Iterator;
-import java.util.List;
 
 import javax.xml.namespace.QName;
 import javax.xml.stream.XMLEventReader;
@@ -90,15 +89,15 @@ public class StAXParserServiceImpl implements StAXParserService {
 		this.currentElement = nameElement;
 	
 		if(nameElement.equals("web-app")){
-			setAttribute(startElement);
+			setAttribute(startElement, webApp);
 		}
 	}
 
 	private void characters(Characters characters, WebApp webApp) {
-		String textContent = characters.getData().trim();
+		String textContent = characters.getData();
 		
 		if(!currentElement.isEmpty()){
-			WebNameTag tagName = WebNameTag.valueOf(this.currentElement.toUpperCase().replace("-", "_"));
+			WebNameTag tagName = WebNameTag.valueOf(currentElement.toUpperCase().replace("-", "_"));
 
 			switch (tagName) {			
 			case DISPLAY_NAME:
@@ -116,10 +115,16 @@ public class StAXParserServiceImpl implements StAXParserService {
 				webApp.addWelcomeFile(textContent);
 				break;
 			case FILTER:
-				webApp.addFilter(new Filter());
+				if(webApp.getFilterList() == null){
+					webApp.setFilterList(new ArrayList<Filter>());
+				}
+				webApp.addFilter(new Filter());			
 				this.previousElement = this.currentElement;
 				break;
 			case FILTER_MAPPING:
+				if(webApp.getFilterMappingList() == null){
+					webApp.setFilterMappingList(new ArrayList<FilterMapping>());
+				}
 				webApp.addFilterMapping(new FilterMapping());
 				this.previousElement = this.currentElement;
 				break;
@@ -140,40 +145,26 @@ public class StAXParserServiceImpl implements StAXParserService {
 				webApp.getLastFilterMapping().setDispatcher(textContent);
 				break;
 			case INIT_PARAM:
-				switch (previousElement) {
-				case "filter":
-					//баг 
-					webApp.getLastFilter().setInitParamList(new ArrayList<InitParam>());
-					webApp.getLastFilter().addInitParam(new InitParam());
-					break;
-				case "servlet":
-					webApp.getLastServlet().setInitParamList(new ArrayList<InitParam>());
-					webApp.getLastServlet().addInitParam(new InitParam());
-					break;
-				default:
-					break;
-				}
-				break;
+				webApp.getLastFilter().setInitParam(new InitParam());
 			case PARAM_NAME:
-				
-				///initParam.setParamName(textContent);
+				webApp.getLastFilter().getInitParam().setParamName(textContent);
 				break;
-			
 			case PARAM_VALUE:
-				
-				//initParam.setParamValue(textContent);
+				webApp.getLastFilter().getInitParam().setParamValue(textContent);
 				break;
-			
 			case LISTENER:
 				if(webApp.getListenerList() == null){
 					webApp.setListenerList(new ArrayList<Listener>());
-					webApp.addListener(new Listener());
 				}
+				webApp.addListener(new Listener());
 				break;
 			case LISTENER_CLASS:
 				webApp.getLastListener().setListnerClass(textContent);
 				break;
 			case SERVLET:
+				if(webApp.getServletList() == null){
+					webApp.setServletList(new ArrayList<Servlet>());
+				}
 				webApp.addServlet(new Servlet());
 				this.previousElement = this.currentElement;
 				break;
@@ -192,6 +183,9 @@ public class StAXParserServiceImpl implements StAXParserService {
 				webApp.getLastServlet().setServletClass(textContent);
 				break;
 			case SERVLET_MAPPING:
+				if(webApp.getServletMappingList() == null){
+					webApp.setServletMappingList(new ArrayList<ServletMapping>());
+				}
 				webApp.addServletMapping(new ServletMapping());
 				this.previousElement = this.currentElement;
 				break;
@@ -206,6 +200,9 @@ public class StAXParserServiceImpl implements StAXParserService {
 				}
 				break;
 			case ERROR_PAGE:
+				if(webApp.getErrorPageList() == null){
+					webApp.setErrorPageList(new ArrayList<ErrorPage>());
+				}
 				webApp.addErrorPage(new ErrorPage());
 				break;
 			case EXCEPTION_TYPE:
@@ -223,98 +220,12 @@ public class StAXParserServiceImpl implements StAXParserService {
 		}
 	}
 	
-	private void endElement(EndElement endElement) {
-		QName qName = endElement.getName();
-		String nameElement = qName.toString();
-		
-		if(!nameElement.isEmpty()){
-			WebNameTag tagName = WebNameTag.valueOf(nameElement.toUpperCase().replace("-", "_"));
-			switch (tagName) {
-			
-			case FILTER:
-				
-				if(webApp.getFilterList() == null){
-					List<Filter> filterList = new ArrayList<Filter>();
-					webApp.setFilterList(filterList);
-				}
-				
-				webApp.addFilter(filter);
-				break;
-			
-			case FILTER_MAPPING:
-				
-				if(webApp.getFilterMappingList() == null){
-					List<FilterMapping> filterMappingList = new ArrayList<FilterMapping>();
-					webApp.setFilterMappingList(filterMappingList);
-				}
-				
-				webApp.addFilterMapping(filterMapping);
-				break;
-			
-			case SERVLET:
-				
-				if(webApp.getServletList() == null){
-					List<Servlet> servletList = new ArrayList<Servlet>();
-					webApp.setServletList(servletList);
-				}
-				
-				webApp.addServlet(servlet);
-				break;
-		
-			case SERVLET_MAPPING:
-				if(webApp.getServletMappingList() == null){
-					List<ServletMapping> servletMappingList = new ArrayList<ServletMapping>();
-					webApp.setServletMappingList(servletMappingList);
-				}
-				webApp.addServletMapping(servletMapping);
-				break;
-
-			case ERROR_PAGE:
-				
-				if(webApp.getErrorPageList() == null){
-					List<ErrorPage> errorPageList = new ArrayList<ErrorPage>();
-					webApp.setErrorPageList(errorPageList);
-				}
-				
-				webApp.addErrorPage(errorPage);
-				break;
-
-			case INIT_PARAM:
-				
-				switch (previousElement) {
-				
-				case "servlet":
-					
-					if(servlet.getInitParamList() == null){
-						List<InitParam> initParamList = new ArrayList<InitParam>();
-						servlet.setInitParamList(initParamList);
-					}
-				
-					servlet.addInitParam(initParam);
-					break;
-				
-				case "filter":
-				
-					if(filter.getInitParamList() == null){
-						List<InitParam> listInitParam = new ArrayList<InitParam>();
-						filter.setInitParamList(listInitParam);
-					}
-					
-					filter.addInitParam(initParam);
-					break;
-				}
-				
-				break;
-			
-			default:
-				break;
-			}
-		}
+	private void endElement(EndElement endElement, WebApp webApp) {
 		this.currentElement = "";
 	}
 	
-	private void setAttribute(StartElement startElement){
-		@SuppressWarnings("rawtypes")
+	@SuppressWarnings("rawtypes")
+	private void setAttribute(StartElement startElement, WebApp webApp){
 		Iterator iterator = startElement.getAttributes();
 		String attributeValue;
 		String attributeName;
@@ -326,10 +237,10 @@ public class StAXParserServiceImpl implements StAXParserService {
 			
 			switch (attributeName) {
 			case "id":
-				this.webApp.setId(attributeValue);
+				webApp.setId(attributeValue);
 				break;
 			case "version":
-				this.webApp.setVersion(attributeValue);
+				webApp.setVersion(attributeValue);
 				break;
 			}
 		}

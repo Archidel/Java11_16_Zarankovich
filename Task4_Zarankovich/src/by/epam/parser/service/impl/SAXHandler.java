@@ -35,7 +35,6 @@ public class SAXHandler extends DefaultHandler{
 	@Override
 	public void characters(char[] ch, int start, int length) throws SAXException {
 		String textContent = new String(ch, start, length);		
-		InitParam initParam = null;
 		
 		if(!currentElement.isEmpty()){
 			WebNameTag tagName = WebNameTag.valueOf(currentElement.toUpperCase().replace("-", "_"));
@@ -59,11 +58,11 @@ public class SAXHandler extends DefaultHandler{
 				if(webApp.getFilterList() == null){
 					webApp.setFilterList(new ArrayList<Filter>());
 				}
-				System.out.println("FILTER");
 				webApp.addFilter(new Filter());
 				this.previousElement = this.currentElement;
 				break;
 			case FILTER_MAPPING:
+				webApp.setFilterMappingList(new ArrayList<FilterMapping>());
 				webApp.addFilterMapping(new FilterMapping());
 				this.previousElement = this.currentElement;
 				break;
@@ -84,30 +83,13 @@ public class SAXHandler extends DefaultHandler{
 				webApp.getLastFilterMapping().setDispatcher(textContent);
 				break;
 			case INIT_PARAM:
-				initParam = new InitParam();
-				switch (previousElement) {
-				case "filter":
-					if(webApp.getLastFilter().getInitParamList() == null){
-						webApp.getLastFilter().setInitParamList(new ArrayList<InitParam>());
-					}
-					webApp.getLastServlet().addInitParam(initParam);
-					break;
-
-				case "servlet":
-					if(webApp.getLastServlet().getInitParamList() == null){
-						webApp.getLastServlet().setInitParamList(new ArrayList<InitParam>());
-					}
-					webApp.getLastServlet().addInitParam(new InitParam());			
-					break;
-				default:
-					break;
-				}
+				webApp.getLastFilter().setInitParam(new InitParam());
 				break;
 			case PARAM_NAME:
-				initParam.setParamName(textContent);
+				webApp.getLastFilter().getInitParam().setParamName(textContent);
 				break;
 			case PARAM_VALUE:
-				initParam.setParamValue(textContent);
+				webApp.getLastFilter().getInitParam().setParamValue(textContent);
 				break;
 			case LISTENER:
 				if(webApp.getListenerList() == null){
@@ -156,6 +138,7 @@ public class SAXHandler extends DefaultHandler{
 				}
 				break;
 			case ERROR_PAGE:
+				webApp.setErrorPageList(new ArrayList<ErrorPage>());
 				webApp.addErrorPage(new ErrorPage());
 				break;
 			case EXCEPTION_TYPE:

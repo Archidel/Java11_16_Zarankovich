@@ -1,14 +1,13 @@
 package by.epam.parser.bean;
 
 import java.io.Serializable;
-import java.util.List;
 
 public class Filter implements Serializable{
 	private static final long serialVersionUID = 1L;
 
 	private String filterName;
 	private String filterClass;
-	private List<InitParam> initParamList;
+	private InitParam initParam;
 	
 	public Filter() {}
 	
@@ -28,18 +27,12 @@ public class Filter implements Serializable{
 		this.filterClass = filterClass;
 	}
 	
-	public List<InitParam> getInitParamList() {
-		return initParamList;
-	}
-	
-	public void setInitParamList(List<InitParam> initParamList) {
-		this.initParamList = initParamList;
+	public InitParam getInitParam() {
+		return initParam;
 	}
 
-	@Override
-	public String toString() {
-		return "Filter [filterName=" + filterName + ", filterClass=" + filterClass + ", initParamList=" + initParamList
-				+ "]";
+	public void setInitParam(InitParam initParam) {
+		this.initParam = initParam;
 	}
 
 	@Override
@@ -48,63 +41,40 @@ public class Filter implements Serializable{
 		int result = 1;
 		result = prime * result + ((filterClass == null) ? 0 : filterClass.hashCode());
 		result = prime * result + ((filterName == null) ? 0 : filterName.hashCode());
-		result = prime * result + ((initParamList == null) ? 0 : initParamList.hashCode());
+		result = prime * result + ((initParam == null) ? 0 : initParam.hashCode());
 		return result;
 	}
 
 	@Override
 	public boolean equals(Object obj) {
-		if (this == obj){
+		if (this == obj)
 			return true;
-		}
-		
-		if (obj == null){
+		if (obj == null)
 			return false;
-		}
-		
-		if (getClass() != obj.getClass()){
+		if (getClass() != obj.getClass())
 			return false;
-		}
-		
-		Filter filter = (Filter) obj;
-		
+		Filter other = (Filter) obj;
 		if (filterClass == null) {
-			if (filter.filterClass != null){
+			if (other.filterClass != null)
 				return false;
-			}
-		} else if (!filterClass.equals(filter.filterClass)){
+		} else if (!filterClass.equals(other.filterClass))
 			return false;
-		}
-		
 		if (filterName == null) {
-			if (filter.filterName != null){
+			if (other.filterName != null)
 				return false;
-			}
-		} else if (!filterName.equals(filter.filterName)){
+		} else if (!filterName.equals(other.filterName))
 			return false;
-		}
-		
-		if (initParamList == null) {
-			if (filter.initParamList != null){
+		if (initParam == null) {
+			if (other.initParam != null)
 				return false;
-			}
-		} else if (!initParamList.equals(filter.initParamList)){
+		} else if (!initParam.equals(other.initParam))
 			return false;
-		}
-		
 		return true;
 	}
-		
-	public int getSizeInitParamList(){
-		return initParamList.size();
+
+	@Override
+	public String toString() {
+		return "Filter [filterName=" + filterName + ", filterClass=" + filterClass + ", initParam=" + initParam + "]";
 	}
 	
-	public void addInitParam(InitParam initParam){
-		this.initParamList.add(initParam);
-	}
-
-	public InitParam getLastInitParam(){
-		InitParam initParam = this.initParamList.get(getSizeInitParamList()-1);
-		return initParam;
-	}
 }

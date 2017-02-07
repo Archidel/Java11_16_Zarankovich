@@ -33,14 +33,8 @@ public class SAXParserServiceImpl implements SAXParserService {
 			reader.setContentHandler(handler);
 			reader.parse(new InputSource(FILE_PATH));
 		} catch (SAXException e) {
-			response = new Response();
-			response.setErrorMessage("Xml file not found");
-			response.setErrorStatus(true);
 			throw new ServiceException(e);
 		} catch (IOException e) {
-			response = new Response();
-			response.setErrorMessage("Xml file not found");
-			response.setErrorStatus(true);
 			throw new ServiceException(e);
 		}
 		

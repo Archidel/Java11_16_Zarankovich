@@ -308,7 +308,7 @@ public class WebApp implements Serializable{
 	}
 
 	public ServletMapping getLastServletMapping(){
-		ServletMapping lastServletMapping = this.servletMappingList.get(getSizeServletList()-1);
+		ServletMapping lastServletMapping = this.servletMappingList.get(getSizeServletMappingList()-1);
 		return  lastServletMapping;
 	}
 

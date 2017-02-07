@@ -253,9 +253,6 @@ public class DOMParserServiceImpl implements DOMParserService {
 						case SERVLET_CLASS:
 							servlet.setServletClass(childeServletElement.getTextContent());
 							break;
-						case INIT_PARAM:
-							servlet.setInitParamList(getInitParamList(childeServletElement));					
-							break;
 						default:
 							break;
 						}
@@ -310,7 +307,8 @@ public class DOMParserServiceImpl implements DOMParserService {
 							filter.setFilterClass(childeFilterElement.getTextContent());
 							break;
 						case INIT_PARAM:
-							filter.setInitParamList(getInitParamList(childeFilterElement));
+							filter.setInitParam(getInitParam(childeFilterElement));
+		//					filter.setInitParamList(getInitParamList(childeFilterElement));
 							break;			
 						default:
 							break;
@@ -323,8 +321,7 @@ public class DOMParserServiceImpl implements DOMParserService {
 		return filterList;
 	}
 	
-	private List<InitParam> getInitParamList(Element element) {
-		List<InitParam> initParamList = new ArrayList<InitParam>();
+	private InitParam getInitParam(Element element) {
 		InitParam initParam = new InitParam();
 		NodeList initParamNodeList = element.getChildNodes();
 		
@@ -345,10 +342,9 @@ public class DOMParserServiceImpl implements DOMParserService {
 				default:
 					break;
 				}
-				initParamList.add(initParam);
 			}
 		}
-		return initParamList;
+		return initParam;
 	}
 
 	private List<String> getWelcomeFileList(Document document){
