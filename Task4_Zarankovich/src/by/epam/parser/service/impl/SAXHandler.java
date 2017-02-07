@@ -20,7 +20,6 @@ public class SAXHandler extends DefaultHandler{
 	private WebApp webApp; // жестоким способом убиваем многопоточность
 	private String currentElement;
 	private String previousElement;
-	// ну и что делать с currentElement, previous????????????
 	
 	@Override
 	public void startDocument() throws SAXException {

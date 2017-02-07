@@ -14,7 +14,7 @@ import by.epam.parser.service.exception.ServiceException;
 import by.epam.parser.service.validation.ValidationData;
 
 public class SAXParserServiceImpl implements SAXParserService {
-	
+
 	@Override
 	public Response doParsing(String filename) throws ServiceException {
 		

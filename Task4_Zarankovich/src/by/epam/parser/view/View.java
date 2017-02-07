@@ -12,11 +12,11 @@ public final class View {
 		response = CONTROLLER.executeAction("sax_parser web.xml");
 		PrintData.PrintResponse(response);
 		
-//		response = CONTROLLER.executeAction("stax_parser web.xml");
-//		PrintData.PrintResponse(response);
+		response = CONTROLLER.executeAction("stax_parser web.xml");
+		PrintData.PrintResponse(response);
 
-//		response = CONTROLLER.executeAction("dom_parser web.xml");
-//		PrintData.PrintResponse(response);
+		response = CONTROLLER.executeAction("dom_parser web.xml");
+		PrintData.PrintResponse(response);
 	}
 	
 }
