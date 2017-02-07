@@ -261,7 +261,7 @@ public class DOMParserServiceImpl implements DOMParserService {
 				servletList.add(servlet);
 			}
 		}
-	
+		
 		return servletList;
 	}
 	
@@ -308,7 +308,6 @@ public class DOMParserServiceImpl implements DOMParserService {
 							break;
 						case INIT_PARAM:
 							filter.setInitParam(getInitParam(childeFilterElement));
-		//					filter.setInitParamList(getInitParamList(childeFilterElement));
 							break;			
 						default:
 							break;
