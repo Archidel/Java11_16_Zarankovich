@@ -24,21 +24,16 @@ import by.epam.parser.bean.Response;
 import by.epam.parser.bean.Servlet;
 import by.epam.parser.bean.ServletMapping;
 import by.epam.parser.bean.WebApp;
+import by.epam.parser.service.FileParameters;
 import by.epam.parser.service.StAXParserService;
 import by.epam.parser.service.exception.ServiceException;
 import by.epam.parser.service.name_tag.WebNameTag;
 import by.epam.parser.service.validation.ValidationData;
 
 public class StAXParserServiceImpl implements StAXParserService {
-	private static final String FILE_PATH = "src/resource/web.xml";
 	
 	private String currentElement;
 	private String previousElement;
-	
-	/* убрать всё и сотавить ссылку webapp
-	 * кидайть её пометодам 
-	 * ВЫНЕСТИ ИНИЦИАЛИЗАЦИЮ листов в отдельный меотдов
-	 */ 
 	
 	@Override
 	public Response doParsing(String filename) throws ServiceException {
@@ -47,17 +42,21 @@ public class StAXParserServiceImpl implements StAXParserService {
 			throw new ServiceException("Incorrect filename");
 		}
 		
-		XMLInputFactory factory = XMLInputFactory.newInstance();
-		Response response = null;
-		WebApp webApp = new WebApp();
-
+		WebApp webApp = null;
+		
 		try {
 			
-			FileInputStream fileInputStream = new FileInputStream(FILE_PATH);
+			FileInputStream fileInputStream = new FileInputStream(FileParameters.FILE_PATH + filename);
+			XMLInputFactory factory = XMLInputFactory.newInstance();
 			XMLEventReader xmlEventReader = factory.createXMLEventReader(fileInputStream);
 			
 			while(xmlEventReader.hasNext()){
 				XMLEvent xmlEvent = xmlEventReader.nextEvent();
+				
+				if(xmlEvent.isStartDocument()){
+					webApp = new WebApp();
+					initElementList(webApp);
+				}
 				
 				if(xmlEvent.isStartElement()){
 					startElement(xmlEvent.asStartElement(), webApp);
@@ -78,7 +77,8 @@ public class StAXParserServiceImpl implements StAXParserService {
 			throw new ServiceException(e);
 		}
 		
-		response = new Response();
+		Response response = new Response();
+		response.setResponseMessage("File has been successfully parsed");
 		response.setWebApp(webApp);
 		return response;
 	}
@@ -101,30 +101,18 @@ public class StAXParserServiceImpl implements StAXParserService {
 
 			switch (tagName) {			
 			case DISPLAY_NAME:
-				if(webApp.getDisplayNameList() == null){
-					webApp.setDisplayNameList(new ArrayList<String>());
-				}
 				webApp.addDisplayName(textContent);	
 				break;
 			case WELCOME_FILE_LIST:
-				if(webApp.getWelcomeFileList() == null){
-					webApp.setWelcomeFileList(new ArrayList<String>());
-				}
 				break;
 			case WELCOME_FILE:
 				webApp.addWelcomeFile(textContent);
 				break;
 			case FILTER:
-				if(webApp.getFilterList() == null){
-					webApp.setFilterList(new ArrayList<Filter>());
-				}
 				webApp.addFilter(new Filter());			
 				this.previousElement = this.currentElement;
 				break;
 			case FILTER_MAPPING:
-				if(webApp.getFilterMappingList() == null){
-					webApp.setFilterMappingList(new ArrayList<FilterMapping>());
-				}
 				webApp.addFilterMapping(new FilterMapping());
 				this.previousElement = this.currentElement;
 				break;
@@ -153,18 +141,12 @@ public class StAXParserServiceImpl implements StAXParserService {
 				webApp.getLastFilter().getInitParam().setParamValue(textContent);
 				break;
 			case LISTENER:
-				if(webApp.getListenerList() == null){
-					webApp.setListenerList(new ArrayList<Listener>());
-				}
 				webApp.addListener(new Listener());
 				break;
 			case LISTENER_CLASS:
 				webApp.getLastListener().setListnerClass(textContent);
 				break;
 			case SERVLET:
-				if(webApp.getServletList() == null){
-					webApp.setServletList(new ArrayList<Servlet>());
-				}
 				webApp.addServlet(new Servlet());
 				this.previousElement = this.currentElement;
 				break;
@@ -172,8 +154,7 @@ public class StAXParserServiceImpl implements StAXParserService {
 				switch (previousElement) {
 				case "servlet":
 					webApp.getLastServlet().setServletName(textContent);
-					break;
-				
+					break;				
 				case "servlet-mapping":
 					webApp.getLastServletMapping().setServletName(textContent);
 					break;
@@ -183,9 +164,6 @@ public class StAXParserServiceImpl implements StAXParserService {
 				webApp.getLastServlet().setServletClass(textContent);
 				break;
 			case SERVLET_MAPPING:
-				if(webApp.getServletMappingList() == null){
-					webApp.setServletMappingList(new ArrayList<ServletMapping>());
-				}
 				webApp.addServletMapping(new ServletMapping());
 				this.previousElement = this.currentElement;
 				break;
@@ -200,9 +178,6 @@ public class StAXParserServiceImpl implements StAXParserService {
 				}
 				break;
 			case ERROR_PAGE:
-				if(webApp.getErrorPageList() == null){
-					webApp.setErrorPageList(new ArrayList<ErrorPage>());
-				}
 				webApp.addErrorPage(new ErrorPage());
 				break;
 			case EXCEPTION_TYPE:
@@ -244,6 +219,17 @@ public class StAXParserServiceImpl implements StAXParserService {
 				break;
 			}
 		}
+	}
+
+	private void initElementList(WebApp webApp){
+		webApp.setDisplayNameList(new ArrayList<String>());
+		webApp.setErrorPageList(new ArrayList<ErrorPage>());
+		webApp.setFilterList(new ArrayList<Filter>());
+		webApp.setFilterMappingList(new ArrayList<FilterMapping>());
+		webApp.setListenerList(new ArrayList<Listener>());
+		webApp.setServletList(new ArrayList<Servlet>());
+		webApp.setServletMappingList(new ArrayList<ServletMapping>());
+		webApp.setWelcomeFileList(new ArrayList<String>());
 	}
 
 }

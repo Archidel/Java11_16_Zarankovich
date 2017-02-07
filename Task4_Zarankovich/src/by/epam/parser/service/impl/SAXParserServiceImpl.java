@@ -8,12 +8,12 @@ import org.xml.sax.XMLReader;
 import org.xml.sax.helpers.XMLReaderFactory;
 
 import by.epam.parser.bean.Response;
+import by.epam.parser.service.FileParameters;
 import by.epam.parser.service.SAXParserService;
 import by.epam.parser.service.exception.ServiceException;
 import by.epam.parser.service.validation.ValidationData;
 
 public class SAXParserServiceImpl implements SAXParserService {
-	public static final String FILE_PATH = "src/resource/web.xml";
 	
 	@Override
 	public Response doParsing(String filename) throws ServiceException {
@@ -31,7 +31,7 @@ public class SAXParserServiceImpl implements SAXParserService {
 			handler = new SAXHandler();
 			
 			reader.setContentHandler(handler);
-			reader.parse(new InputSource(FILE_PATH));
+			reader.parse(new InputSource(FileParameters.FILE_PATH + filename));
 		} catch (SAXException e) {
 			throw new ServiceException(e);
 		} catch (IOException e) {
@@ -41,7 +41,6 @@ public class SAXParserServiceImpl implements SAXParserService {
 		response = new Response();
 		response.setResponseMessage("File has been successfully parsed");
 		response.setWebApp(handler.getWebApp());
-		
 		return response;
 	}
 

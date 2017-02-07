@@ -23,10 +23,15 @@ public class SAXHandler extends DefaultHandler{
 	// ну и что делать с currentElement, previous????????????
 	
 	@Override
+	public void startDocument() throws SAXException {
+		webApp = new WebApp();
+		initElementList(webApp);
+	}
+	
+	@Override
 	public void startElement(String uri, String localName, String qName, Attributes attributes) throws SAXException {
 		this.currentElement = qName;
 		if(qName.equals("web-app")){
-			webApp = new WebApp();
 			webApp.setId(attributes.getValue(0));			
 			webApp.setVersion(attributes.getValue(1));
 		}	
@@ -41,23 +46,14 @@ public class SAXHandler extends DefaultHandler{
 			
 			switch (tagName) {		
 			case DISPLAY_NAME:
-				if(webApp.getDisplayNameList() == null){
-					webApp.setDisplayNameList(new ArrayList<String>());
-				}
 				webApp.addDisplayName(textContent);	
 				break;		
 			case WELCOME_FILE_LIST:
-				if(webApp.getWelcomeFileList() == null){
-					webApp.setWelcomeFileList(new ArrayList<String>());
-				}
 				break;
 			case WELCOME_FILE:
 				webApp.addWelcomeFile(textContent);
 				break;
 			case FILTER:
-				if(webApp.getFilterList() == null){
-					webApp.setFilterList(new ArrayList<Filter>());
-				}
 				webApp.addFilter(new Filter());
 				this.previousElement = this.currentElement;
 				break;
@@ -92,18 +88,12 @@ public class SAXHandler extends DefaultHandler{
 				webApp.getLastFilter().getInitParam().setParamValue(textContent);
 				break;
 			case LISTENER:
-				if(webApp.getListenerList() == null){
-					webApp.setListenerList(new ArrayList<Listener>());
-				}
 				webApp.addListener(new Listener());
 				break;
 			case LISTENER_CLASS:
 				webApp.getLastListener().setListnerClass(textContent);
 				break;
 			case SERVLET:
-				if(webApp.getServletList() == null){
-					webApp.setServletList(new ArrayList<Servlet>());
-				}
 				webApp.addServlet(new Servlet());
 				this.previousElement = this.currentElement;
 				break;
@@ -121,9 +111,6 @@ public class SAXHandler extends DefaultHandler{
 				webApp.getLastServlet().setServletClass(textContent);
 				break;
 			case SERVLET_MAPPING:
-				if(webApp.getServletMappingList() == null){
-					webApp.setServletMappingList(new ArrayList<ServletMapping>());
-				}
 				webApp.addServletMapping(new ServletMapping());
 				this.previousElement = this.currentElement;
 				break;
@@ -138,7 +125,6 @@ public class SAXHandler extends DefaultHandler{
 				}
 				break;
 			case ERROR_PAGE:
-				webApp.setErrorPageList(new ArrayList<ErrorPage>());
 				webApp.addErrorPage(new ErrorPage());
 				break;
 			case EXCEPTION_TYPE:
@@ -165,4 +151,15 @@ public class SAXHandler extends DefaultHandler{
 		return webApp;
 	}
 
+	private void initElementList(WebApp webApp){
+		webApp.setDisplayNameList(new ArrayList<String>());
+		webApp.setErrorPageList(new ArrayList<ErrorPage>());
+		webApp.setFilterList(new ArrayList<Filter>());
+		webApp.setFilterMappingList(new ArrayList<FilterMapping>());
+		webApp.setListenerList(new ArrayList<Listener>());
+		webApp.setServletList(new ArrayList<Servlet>());
+		webApp.setServletMappingList(new ArrayList<ServletMapping>());
+		webApp.setWelcomeFileList(new ArrayList<String>());
+	}
+	
 }

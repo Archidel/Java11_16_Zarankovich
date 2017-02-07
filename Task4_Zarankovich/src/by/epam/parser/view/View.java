@@ -9,11 +9,11 @@ public final class View {
 	public static void main(String [] args){		
 		Response response;
 		// controller.exceuteActioon(тип_парсера, имя_файла);
-//		response = CONTROLLER.executeAction("sax_parser web.xml");
-//		PrintData.PrintResponse(response);
-		
-		response = CONTROLLER.executeAction("stax_parser web.xml");
+		response = CONTROLLER.executeAction("sax_parser web.xml");
 		PrintData.PrintResponse(response);
+		
+//		response = CONTROLLER.executeAction("stax_parser web.xml");
+//		PrintData.PrintResponse(response);
 
 //		response = CONTROLLER.executeAction("dom_parser web.xml");
 //		PrintData.PrintResponse(response);

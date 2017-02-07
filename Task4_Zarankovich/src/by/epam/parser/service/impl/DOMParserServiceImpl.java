@@ -25,12 +25,12 @@ import by.epam.parser.bean.Servlet;
 import by.epam.parser.bean.ServletMapping;
 import by.epam.parser.bean.WebApp;
 import by.epam.parser.service.DOMParserService;
+import by.epam.parser.service.FileParameters;
 import by.epam.parser.service.exception.ServiceException;
 import by.epam.parser.service.name_tag.WebNameTag;
 import by.epam.parser.service.validation.ValidationData;
 
 public class DOMParserServiceImpl implements DOMParserService {
-	private static final String FILE_PATH = "src/resource/";
 
 	@Override
 	public Response doParsing(String filename) throws ServiceException {
@@ -40,7 +40,7 @@ public class DOMParserServiceImpl implements DOMParserService {
 		}
 		
 		DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
-		InputSource inputSource = new InputSource(FILE_PATH + filename);
+		InputSource inputSource = new InputSource(FileParameters.FILE_PATH + filename);
 		DocumentBuilder documentBuilder = null;
 		Document document = null;
 		
@@ -99,7 +99,7 @@ public class DOMParserServiceImpl implements DOMParserService {
 					webApp.setServletMappingList(getServletMappingList(document, nodeName));
 					break;
 				case ERROR_PAGE:
-					webApp.setErrorPageList(setErrorPageList(document, nodeName));			
+					webApp.setErrorPageList(getErrorPageList(document, nodeName));			
 					break;
 				default:
 					throw new EnumConstantNotPresentException(WebNameTag.class, nodeName);
@@ -115,7 +115,7 @@ public class DOMParserServiceImpl implements DOMParserService {
 		return displayNameList;
 	}
 
-	private List<ErrorPage> setErrorPageList(Document document, String nodeName){
+	private List<ErrorPage> getErrorPageList(Document document, String nodeName){
 		List<ErrorPage> errorPageList = new ArrayList<ErrorPage>();
 		NodeList errorPageNodeList = document.getElementsByTagName(nodeName);
 		

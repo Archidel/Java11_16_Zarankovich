@@ -47,28 +47,44 @@ public class Filter implements Serializable{
 
 	@Override
 	public boolean equals(Object obj) {
-		if (this == obj)
+		if (this == obj){
 			return true;
-		if (obj == null)
+		}
+		
+		if (obj == null){
 			return false;
-		if (getClass() != obj.getClass())
+		}
+		
+		if (getClass() != obj.getClass()){
 			return false;
-		Filter other = (Filter) obj;
+		}
+		
+		Filter filter = (Filter) obj;
+		
 		if (filterClass == null) {
-			if (other.filterClass != null)
+			if (filter.filterClass != null){
 				return false;
-		} else if (!filterClass.equals(other.filterClass))
+			}
+		} else if (!filterClass.equals(filter.filterClass)){
 			return false;
+		}
+		
 		if (filterName == null) {
-			if (other.filterName != null)
+			if (filter.filterName != null){
 				return false;
-		} else if (!filterName.equals(other.filterName))
+			}
+		} else if (!filterName.equals(filter.filterName)){
 			return false;
+		}
+		
 		if (initParam == null) {
-			if (other.initParam != null)
+			if (filter.initParam != null){
 				return false;
-		} else if (!initParam.equals(other.initParam))
+			}
+		} else if (!initParam.equals(filter.initParam)){
 			return false;
+		}
+		
 		return true;
 	}
 
