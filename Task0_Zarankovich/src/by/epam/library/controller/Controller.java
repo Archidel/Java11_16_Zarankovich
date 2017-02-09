@@ -11,6 +11,8 @@ public final class Controller {
 		Command command;
 		
 		commandName = request.substring(0, request.indexOf(paramDelimeter));
+		System.out.println("COMMAND NAME" + commandName);
+		
 		CommandProvider provider = CommandProvider.getInstance();
 		command = provider.getCommand(commandName);
 		
