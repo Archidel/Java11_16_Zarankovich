@@ -5,7 +5,7 @@ import by.epam.library.dao.impl.LibraryDAOImpl;
 
 public final class DAOFactory {
 	private static DAOFactory instance = null;
-	private static final LibraryDAO LIBRARY_DAO = new LibraryDAOImpl();
+	private final LibraryDAO libraryDAO = new LibraryDAOImpl();
 
 	private DAOFactory() {}
 
@@ -17,7 +17,7 @@ public final class DAOFactory {
 	}
 
 	public LibraryDAO getLibraryDao() {
-		return LIBRARY_DAO;
+		return libraryDAO;
 	}
 
 	

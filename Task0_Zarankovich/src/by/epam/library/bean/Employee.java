@@ -7,6 +7,7 @@ public class Employee {
 	private String name;
 	private Date Date_of_birth;
 	private String email;
+	
 	public int getId() {
 		return id;
 	}
@@ -74,7 +75,5 @@ public class Employee {
 		return "Employee [id=" + id + ", name=" + name + ", Date_of_birth=" + Date_of_birth + ", email=" + email + "]";
 	}
 	
-	public Employee() {
-		// TODO Auto-generated constructor stub
-	}
+	public Employee() {}
 }
