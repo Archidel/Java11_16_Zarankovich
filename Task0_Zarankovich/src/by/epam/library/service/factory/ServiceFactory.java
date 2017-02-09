@@ -18,7 +18,7 @@ public final class ServiceFactory {
 		return instance;
 	}
 
-	public static LibraryService getLibraryService() {
+	public LibraryService getLibraryService() {
 		return LIBRARY_SERVICE;
 	}
 

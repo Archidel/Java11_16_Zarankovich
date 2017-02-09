@@ -13,7 +13,7 @@ public class CommandProvider {
 	public static final Map<CommandName, Command> commands = new HashMap<CommandName, Command>();
 	
 	private CommandProvider() {
-		commands.put(CommandName.SHOW_THAN_1_book, new ShowthanOneBook());
+		commands.put(CommandName.SHOW_THAN_1_BOOK, new ShowthanOneBook());
 		commands.put(CommandName.SHOW_THAN_2_OR_EQUALSE_BOOK, new ShowThanTwoOrEqualseBook());
 		commands.put(CommandName.RENAME_BOOK, new RenameBook());
 		commands.put(CommandName.WRONG_REQUEST, new WrongRequest());	

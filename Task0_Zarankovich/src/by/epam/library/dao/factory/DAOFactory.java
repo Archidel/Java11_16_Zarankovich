@@ -16,7 +16,7 @@ public class DAOFactory {
 		return instance;
 	}
 
-	public static LibraryDAO getLibraryDao() {
+	public LibraryDAO getLibraryDao() {
 		return LIBRARY_DAO;
 	}
 
