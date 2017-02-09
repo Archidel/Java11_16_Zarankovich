@@ -19,7 +19,8 @@ public class RenameBook implements Command {
 		try {
 			libraryService.RenameBook(idBook, newName);
 		} catch (ServiceException e) {
-			// TODO Auto-generated catch block
+			System.out.println("Ошибка выполнения программы");
+			//logger
 			e.printStackTrace();
 		}
 		

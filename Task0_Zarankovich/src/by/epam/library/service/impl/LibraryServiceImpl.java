@@ -16,8 +16,7 @@ public class LibraryServiceImpl implements LibraryService {
 		try {
 			libraryDAO.RenameBook(idBook,newName);
 		} catch (DAOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			throw new ServiceException(e);
 		}
 		
 	}
@@ -30,8 +29,7 @@ public class LibraryServiceImpl implements LibraryService {
 		try {
 			libraryDAO.ShowthanOneBook();
 		} catch (DAOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			throw new ServiceException(e);
 		}
 		
 	}
@@ -44,8 +42,7 @@ public class LibraryServiceImpl implements LibraryService {
 		try {
 			libraryDAO.ShowThanTwoOrEqualseBook();
 		} catch (DAOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			throw new ServiceException(e);
 		}
 		
 	}

@@ -15,7 +15,8 @@ public class ShowThanTwoOrEqualseBook implements Command {
 		try {
 			libraryService.ShowThanTwoOrEqualseBook();
 		} catch (ServiceException e) {
-			// TODO Auto-generated catch block
+			System.out.println("Ошибка выполнения программы");
+			//logger
 			e.printStackTrace();
 		}
 		

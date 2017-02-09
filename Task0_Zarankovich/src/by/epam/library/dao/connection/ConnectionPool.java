@@ -13,7 +13,8 @@ import by.epam.library.dao.exception.DAOException;
 
 public class ConnectionPool implements Closeable{
 	private static final ConnectionPool instance = new ConnectionPool();
-		
+	private static final DBResourceManager resourceManager = DBResourceManager.getInstance();
+	
 	private BlockingQueue<Connection> freeConnection;
 	private BlockingQueue<Connection> busyConnection;
 	
@@ -24,7 +25,7 @@ public class ConnectionPool implements Closeable{
 	private String url;
 		
 	private ConnectionPool() {
-		DBResourceManager resourceManager = DBResourceManager.getInstance();
+		
 		this.driver = resourceManager.getValue(DBParameter.DB_DRIVER);
 		this.user = resourceManager.getValue(DBParameter.DB_USER);
 		this.password = resourceManager.getValue(DBParameter.DB_PASSWORD);
@@ -37,7 +38,7 @@ public class ConnectionPool implements Closeable{
 		}
 	}
 
-	public void init() throws SQLException{
+	public void init() throws SQLException, DAOException{
 			
 		freeConnection = new ArrayBlockingQueue<>(poolsize);
 		busyConnection = new ArrayBlockingQueue<>(poolsize);
@@ -45,7 +46,7 @@ public class ConnectionPool implements Closeable{
 		try {
 			Class.forName(driver);
 		} catch (ClassNotFoundException e) {
-			e.printStackTrace();
+			throw new DAOException(e);
 		}
 		
 		for(int i = 0; i < poolsize; i++){
@@ -87,7 +88,7 @@ public class ConnectionPool implements Closeable{
 					connection.close();
 				}
 			} catch (SQLException e) {
-				e.printStackTrace();
+				//LOGGER.log
 			}
 		}
 	}

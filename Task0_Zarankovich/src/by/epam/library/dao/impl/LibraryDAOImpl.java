@@ -36,11 +36,10 @@ public class LibraryDAOImpl implements LibraryDAO {
 			try {
 				pool.free(con);
 			} catch (InterruptedException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}	//Освобождение очереди
+				throw new DAOException(e);
+		
+			}
 		}
-
 	}
 
 	@Override
@@ -65,8 +64,7 @@ public class LibraryDAOImpl implements LibraryDAO {
 			try {
 				pool.free(con);
 			} catch (InterruptedException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
+				throw new DAOException(e);
 			}	//Освобождение очереди
 		}
 		
@@ -94,8 +92,8 @@ public class LibraryDAOImpl implements LibraryDAO {
 			try {
 				pool.free(con);
 			} catch (InterruptedException e) {
-				e.printStackTrace();
-			}	//Освобождение очереди
+				throw new DAOException(e);
+			}
 		}
 		
 	}

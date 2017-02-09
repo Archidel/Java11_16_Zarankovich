@@ -5,7 +5,7 @@ import by.epam.library.service.impl.LibraryServiceImpl;
 
 public final class ServiceFactory {
 	private static ServiceFactory instance = null;
-	private static final LibraryService LIBRARY_SERVICE = new LibraryServiceImpl();
+	private final LibraryService libraryService = new LibraryServiceImpl();
 	
 	private ServiceFactory() {
 		// TODO Auto-generated constructor stub
@@ -19,7 +19,7 @@ public final class ServiceFactory {
 	}
 
 	public LibraryService getLibraryService() {
-		return LIBRARY_SERVICE;
+		return libraryService;
 	}
 
 	
