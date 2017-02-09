@@ -8,7 +8,7 @@ import by.epam.library.controller.command.impl.ShowThanTwoOrEqualseBook;
 import by.epam.library.controller.command.impl.ShowthanOneBook;
 import by.epam.library.controller.command.impl.WrongRequest;
 
-public class CommandProvider {
+public final class CommandProvider {
 	private static CommandProvider instance = null;
 	public static final Map<CommandName, Command> commands = new HashMap<CommandName, Command>();
 	

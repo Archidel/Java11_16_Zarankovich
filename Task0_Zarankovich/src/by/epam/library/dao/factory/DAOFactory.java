@@ -3,7 +3,7 @@ package by.epam.library.dao.factory;
 import by.epam.library.dao.LibraryDAO;
 import by.epam.library.dao.impl.LibraryDAOImpl;
 
-public class DAOFactory {
+public final class DAOFactory {
 	private static DAOFactory instance = null;
 	private static final LibraryDAO LIBRARY_DAO = new LibraryDAOImpl();
 

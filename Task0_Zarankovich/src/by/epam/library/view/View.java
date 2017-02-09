@@ -11,10 +11,13 @@ public class View {
 		
 		//CONTROLLER.executeAction (commandName + idBook + newNameBook);
 		response = CONTROLLER.executeAction(CommandName.SHOW_THAN_1_BOOK.name() + " 1 mybook");
-
+		System.out.println(response);
+		
 		response = CONTROLLER.executeAction(CommandName.SHOW_THAN_2_OR_EQUALSE_BOOK.name());
+		System.out.println(response);
 		
 		response = CONTROLLER.executeAction(CommandName.RENAME_BOOK.name());
+		System.out.println(response);
 	}
 }
 
