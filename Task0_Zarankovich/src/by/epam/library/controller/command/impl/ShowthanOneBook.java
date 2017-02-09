@@ -12,15 +12,17 @@ public class ShowthanOneBook implements Command {
 		ServiceFactory factory = ServiceFactory.getInstance();
 		LibraryService libraryService = factory.getLibraryService();
 		
+		String response = null;
+		
 		try {
 			libraryService.ShowthanOneBook();
 		} catch (ServiceException e) {
-			System.out.println("Ошибка выполнения программы");
+			response = "Ошибка выполнения программы";
 			//logger
 			e.printStackTrace();
 		}
 		
-		return null;
+		return response;
 	}
 
 }

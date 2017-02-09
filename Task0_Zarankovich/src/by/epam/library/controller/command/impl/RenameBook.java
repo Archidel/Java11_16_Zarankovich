@@ -16,15 +16,17 @@ public class RenameBook implements Command {
 		ServiceFactory factory = ServiceFactory.getInstance();
 		LibraryService libraryService = factory.getLibraryService();
 		
+		
+		String response = null;
 		try {
 			libraryService.RenameBook(idBook, newName);
 		} catch (ServiceException e) {
-			System.out.println("Ошибка выполнения программы");
+			response = "Ошибка выполнения программы";
 			//logger
 			e.printStackTrace();
 		}
 		
-		return null;
+		return response;
 	}
 
 }
