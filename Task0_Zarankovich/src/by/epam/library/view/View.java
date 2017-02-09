@@ -8,7 +8,6 @@ public class View {
 	public static void main(String [] args){
 		String response = null;
 		
-		
 		//CONTROLLER.executeAction (commandName + idBook + newNameBook);
 		response = CONTROLLER.executeAction(CommandName.SHOW_THAN_1_BOOK.name() + " 1 mybook");
 		System.out.println(response);
@@ -20,18 +19,3 @@ public class View {
 		System.out.println(response);
 	}
 }
-
-/*
- * 
- * у которых больше чем 1 книга
- * больше или равно 2 книги
- * em name: emp date o f birstad: number of books
- */
-
-// rename book name
-//name : number of book
-
-/*
-
-
-*/
