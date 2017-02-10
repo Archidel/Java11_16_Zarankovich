@@ -5,7 +5,7 @@ import by.epam.analyzer.dao.XMLFileDAO;
 import by.epam.analyzer.dao.impl.ReadPartOfFileDAOImpl;
 import by.epam.analyzer.dao.impl.XMLFileDAOIMpl;
 
-public class DAOFactory {
+public final class DAOFactory {
 	
 	private static DAOFactory instance = null;
 	private final XMLFileDAO xmlFileDAO = new XMLFileDAOIMpl();

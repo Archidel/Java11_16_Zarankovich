@@ -5,7 +5,7 @@ import by.epam.analyzer.service.ReadWholeFileSerivce;
 import by.epam.analyzer.service.impl.ReadPartOfFileServiceImpl;
 import by.epam.analyzer.service.impl.ReadWholeFileSerivceImpl;
 
-public class ServiceFactory {
+public final class ServiceFactory {
 	
 	private static ServiceFactory instance = null;
 	private final ReadWholeFileSerivce readWholeFileSerivce = new ReadWholeFileSerivceImpl();
