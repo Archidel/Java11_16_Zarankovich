@@ -8,8 +8,8 @@ import by.epam.analyzer.service.impl.ReadWholeFileSerivceImpl;
 public class ServiceFactory {
 	
 	private static ServiceFactory instance = null;
-	private final ReadWholeFileSerivce WHOLE_FILE_SERIVCE = new ReadWholeFileSerivceImpl();
-	private final ReadPartOfFileService READ_PART_OF_FILE_SERVICE = new ReadPartOfFileServiceImpl();
+	private final ReadWholeFileSerivce readWholeFileSerivce = new ReadWholeFileSerivceImpl();
+	private final ReadPartOfFileService readPartOfFileService = new ReadPartOfFileServiceImpl();
 	
 	private ServiceFactory() {}
 
@@ -21,11 +21,11 @@ public class ServiceFactory {
 	}
 
 	public ReadWholeFileSerivce getWholeFileSerivce() {
-		return WHOLE_FILE_SERIVCE;
+		return readWholeFileSerivce;
 	}
 
 	public ReadPartOfFileService getReadPartOfFileService() {
-		return READ_PART_OF_FILE_SERVICE;
+		return readPartOfFileService;
 	}
 	
 }
