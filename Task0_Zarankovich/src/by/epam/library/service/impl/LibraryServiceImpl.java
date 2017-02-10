@@ -9,12 +9,12 @@ import by.epam.library.service.exception.ServiceException;
 public class LibraryServiceImpl implements LibraryService {
 
 	@Override
-	public void RenameBook(int idBook, String newName) throws ServiceException {
+	public void renameBook(int idBook, String newName) throws ServiceException {
 		DAOFactory daoFactory = DAOFactory.getInstance();
 		LibraryDAO libraryDAO = daoFactory.getLibraryDao();
 		
 		try {
-			libraryDAO.RenameBook(idBook,newName);
+			libraryDAO.renameBook(idBook,newName);
 		} catch (DAOException e) {
 			throw new ServiceException(e);
 		}
@@ -22,12 +22,12 @@ public class LibraryServiceImpl implements LibraryService {
 	}
 
 	@Override
-	public void ShowthanOneBook() throws ServiceException {
+	public void showthanOneBook() throws ServiceException {
 		DAOFactory daoFactory = DAOFactory.getInstance();
 		LibraryDAO libraryDAO = daoFactory.getLibraryDao();
 		
 		try {
-			libraryDAO.ShowthanOneBook();
+			libraryDAO.showthanOneBook();
 		} catch (DAOException e) {
 			throw new ServiceException(e);
 		}
@@ -35,12 +35,12 @@ public class LibraryServiceImpl implements LibraryService {
 	}
 
 	@Override
-	public void ShowThanTwoOrEqualseBook() throws ServiceException {
+	public void showThanTwoOrEqualseBook() throws ServiceException {
 		DAOFactory daoFactory = DAOFactory.getInstance();
 		LibraryDAO libraryDAO = daoFactory.getLibraryDao();
 	
 		try {
-			libraryDAO.ShowThanTwoOrEqualseBook();
+			libraryDAO.showThanTwoOrEqualseBook();
 		} catch (DAOException e) {
 			throw new ServiceException(e);
 		}

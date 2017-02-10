@@ -15,7 +15,7 @@ public class ShowthanOneBook implements Command {
 		String response = null;
 		
 		try {
-			libraryService.ShowthanOneBook();
+			libraryService.showthanOneBook();
 		} catch (ServiceException e) {
 			response = "Ошибка выполнения программы";
 			//logger

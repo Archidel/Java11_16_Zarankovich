@@ -14,19 +14,16 @@ import by.epam.library.dao.exception.DAOException;
 public class LibraryDAOImpl implements LibraryDAO {
 
 	@Override
-	public void RenameBook(int idBook, String newName) throws DAOException {
+	public void renameBook(int idBook, String newName) throws DAOException {
 		ConnectionPool pool = ConnectionPool.getInstance();
 		PreparedStatement preparedStatement = null;
 		Connection con = null;
 		
 		try {
 			con = pool.take();
-			
 			preparedStatement = con.prepareStatement(SQLCommand.RENAME_BOOK);
-			
 			preparedStatement.setString(1, newName);
 			preparedStatement.setInt(2, idBook);
-			
 			preparedStatement.executeUpdate();
 		} catch (InterruptedException e) {
 			throw new DAOException(e);
@@ -43,7 +40,7 @@ public class LibraryDAOImpl implements LibraryDAO {
 	}
 
 	@Override
-	public void ShowthanOneBook() throws DAOException {
+	public void showthanOneBook() throws DAOException {
 		ConnectionPool pool = ConnectionPool.getInstance();
 		Connection con = null;
 				
@@ -51,7 +48,6 @@ public class LibraryDAOImpl implements LibraryDAO {
 			con = pool.take();
 			Statement state = con.createStatement();
 			ResultSet rs = state.executeQuery(SQLCommand.SHOW_ONE);
-			
 			while(rs.next()){
 				System.out.println(rs.getString(1) + " " + rs.getString(2));
 			}
@@ -65,13 +61,13 @@ public class LibraryDAOImpl implements LibraryDAO {
 				pool.free(con);
 			} catch (InterruptedException e) {
 				throw new DAOException(e);
-			}	//Освобождение очереди
+			}
 		}
 		
 	}
 
 	@Override
-	public void ShowThanTwoOrEqualseBook() throws DAOException {
+	public void showThanTwoOrEqualseBook() throws DAOException {
 		ConnectionPool pool = ConnectionPool.getInstance();
 		Connection con = null;
 				

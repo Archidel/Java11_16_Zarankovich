@@ -19,7 +19,7 @@ public class RenameBook implements Command {
 		
 		String response = null;
 		try {
-			libraryService.RenameBook(idBook, newName);
+			libraryService.renameBook(idBook, newName);
 		} catch (ServiceException e) {
 			response = "Ошибка выполнения программы";
 			//logger
