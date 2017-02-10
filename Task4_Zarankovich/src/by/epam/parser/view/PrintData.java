@@ -4,6 +4,8 @@ import by.epam.parser.bean.Response;
 
 public final class PrintData {
 	
+	public PrintData() {}
+	
 	public static void PrintResponse(Response response){	
 		if(response.isErrorStatus()){
 			System.out.println(response.getErrorMessage());

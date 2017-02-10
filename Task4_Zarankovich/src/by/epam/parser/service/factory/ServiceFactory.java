@@ -7,7 +7,7 @@ import by.epam.parser.service.impl.DOMParserServiceImpl;
 import by.epam.parser.service.impl.SAXParserServiceImpl;
 import by.epam.parser.service.impl.StAXParserServiceImpl;
 
-public class ServiceFactory {
+public final class ServiceFactory {
 	
 	private static ServiceFactory instance = null;
 	private final DOMParserService domParserService = new DOMParserServiceImpl();
