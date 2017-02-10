@@ -32,9 +32,9 @@ import by.epam.parser.service.validation.ValidationData;
 
 public class StAXParserServiceImpl implements StAXParserService {
 	
-	private String currentElement;
+	private String currentElement; //убиваем мгогопоточность приложения
 	private String previousElement;
-	
+	 
 	@Override
 	public Response doParsing(String filename) throws ServiceException {
 		
