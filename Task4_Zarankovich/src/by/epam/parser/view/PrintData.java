@@ -6,7 +6,7 @@ public final class PrintData {
 	
 	private PrintData() {}
 	
-	public static void PrintResponse(Response response){	
+	public static void printResponse(Response response){	
 		if(response.isErrorStatus()){
 			System.out.println(response.getErrorMessage());
 		}else{

@@ -10,13 +10,13 @@ public final class View {
 		Response response;
 		// controller.exceuteActioon(тип_парсера, имя_файла);
 		response = CONTROLLER.executeAction("sax_parser web.xml");
-		PrintData.PrintResponse(response);
+		PrintData.printResponse(response);
 		
 		response = CONTROLLER.executeAction("stax_parser web.xml");
-		PrintData.PrintResponse(response);
+		PrintData.printResponse(response);
 
 		response = CONTROLLER.executeAction("dom_parser web.xml");
-		PrintData.PrintResponse(response);
+		PrintData.printResponse(response);
 	}
 	
 }

@@ -8,7 +8,7 @@ import by.epam.parser.controller.command.impl.SAXParser;
 import by.epam.parser.controller.command.impl.StAXParser;
 import by.epam.parser.controller.command.impl.WrongRequest;
 
-public class CommandProvider {
+public final class CommandProvider {
 	private static CommandProvider instance = null;
 	public static final Map<CommandName, Command> commands = new HashMap<CommandName, Command>();
 	
